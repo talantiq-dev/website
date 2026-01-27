@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} - Talantiq` : 'Talantiq Solutions';
+    return titleChunk ? `${titleChunk} - Talentiq` : 'Talentiq Solutions';
   },
   link: [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -15,14 +15,16 @@ useHead({
 </script>
 
 <template>
-  <div class="site-wrapper">
-    <NuxtRouteAnnouncer />
-    <Header />
-    <main class="site-main">
-      <NuxtPage />
-    </main>
-    <Footer />
-  </div>
+  <ClientOnly>
+    <div class="site-wrapper">
+      <NuxtRouteAnnouncer />
+      <Header />
+      <main class="site-main">
+        <NuxtPage />
+      </main>
+      <Footer />
+    </div>
+  </ClientOnly>
 </template>
 
 <style scoped>

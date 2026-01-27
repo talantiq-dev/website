@@ -1,9 +1,8 @@
 <template>
   <NuxtLink to="/" class="logo">
-    <!-- Visual Trick: "Talantiq" where the 'a' is rotated to look like an 'e' (Talentiq) -->
     <span class="logo-part">Tal</span>
     <span class="logo-trick">a</span>
-    <span class="logo-part" style="transform: translateX(-2px);">ntiq</span>
+    <span class="logo-part logo-offset">ntiq</span>
   </NuxtLink>
 </template>
 
@@ -24,6 +23,10 @@
   transform: rotate(180deg) translateY(-4px); /* Adjusted for visual alignment */
   transform-origin: center;
   font-family: var(--font-sans);
+}
+
+.logo-offset {
+  transform: translateX(-2px);
 }
 
 @media (prefers-color-scheme: dark) {

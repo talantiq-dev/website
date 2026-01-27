@@ -11,7 +11,6 @@ useSeoMeta({
 
 <template>
   <div class="product-page">
-    <!-- Product Hero -->
     <section class="hero-section">
       <div class="container hero-container">
         <div class="hero-content">
@@ -36,11 +35,9 @@ useSeoMeta({
       </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features-section">
       <div class="container">
         <div class="feature-grid">
-          <!-- Feature 1: Planning -->
           <div class="feature-row">
             <div class="feature-info">
               <div class="feature-icon-wrapper">
@@ -58,7 +55,6 @@ useSeoMeta({
             </div>
           </div>
 
-          <!-- Feature 2: Shopping -->
           <div class="feature-row reverse">
             <div class="feature-visual">
                <div class="mockup-frame-small">
@@ -76,7 +72,6 @@ useSeoMeta({
             </div>
           </div>
 
-          <!-- Feature 3: Importing -->
           <div class="feature-row">
             <div class="feature-info">
               <div class="feature-icon-wrapper">

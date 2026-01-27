@@ -25,7 +25,6 @@ const services = [
 
 <template>
   <div class="home-page">
-    <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-background" />
       
@@ -47,7 +46,6 @@ const services = [
       </div>
     </section>
 
-    <!-- Services Teaser -->
     <section class="services-section section-py">
       <div class="container">
         <div class="section-header">
@@ -71,7 +69,6 @@ const services = [
       </div>
     </section>
 
-    <!-- Product Teaser: Sapid -->
     <section class="product-section section-py">
        <div class="product-background" />
       <div class="container product-container">

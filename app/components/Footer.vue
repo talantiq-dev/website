@@ -12,7 +12,7 @@ const links = [
       <div class="footer-brand">
         <Logo class="footer-logo" />
         <p class="copyright">
-          &copy; {{ new Date().getFullYear() }} Talentiq Solutions. All rights reserved.
+          © {{ new Date().getFullYear() }} Talentiq Solutions. All rights reserved.
         </p>
       </div>
       
