@@ -9,6 +9,9 @@ export default defineNuxtConfig({
     '@nuxt/icon',
   ],
   ssr: false,
+  app: {
+    baseURL: '/',
+  },
   devtools: { enabled: true },
   compatibilityDate: '2024-04-03',
   css: ['~/assets/css/main.css'],
