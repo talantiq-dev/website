@@ -77,21 +77,18 @@ const services = [
       <div class="container product-container">
         <div class="product-content">
             <div class="badge">Featured Product</div>
-            <h2 class="product-title">Sapid: AI Meal Planning</h2>
+            <h2 class="product-title">Sapid: Reclaim your mental space</h2>
             <p class="product-description">
-              Discover the future of nutrition with Sapid. Our AI-powered meal planner creates personalized eating plans that adapt to your lifestyle, preferences, and goals.
+              Plan meals without overthinking while staying in control. Sapid is built around how you already shop—helping you organize your meals across different stores without forcing choices.
             </p>
             <div class="product-actions">
               <NuxtLink to="/sapid" class="btn btn-neutral btn-xl">Explore Sapid</NuxtLink>
             </div>
         </div>
         
-          <!-- Placeholder for Sapid UI/Image -->
           <div class="product-image-wrapper">
              <div class="product-mockup">
-                <div class="mockup-screen">
-                    <span class="mockup-text">Sapid App Screenshot</span>
-                </div>
+                <img src="/sapid-screenshot-planner1.png" alt="Sapid App Screenshot" class="mockup-image" />
              </div>
           </div>
       </div>
@@ -290,13 +287,11 @@ const services = [
     padding: 1rem;
 }
 
-.mockup-screen {
-    background-color: rgba(31, 41, 55, 0.5); /* gray-800 */
-    aspect-ratio: 4/3;
+.mockup-image {
+    width: 100%;
+    height: auto;
     border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
 }
 
 .mockup-text {

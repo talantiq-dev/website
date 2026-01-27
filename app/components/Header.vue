@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const items = [
   { label: 'Services', to: '/services' },
-  { label: 'Product (Sapid)', to: '/sapid' },
+  { label: 'Sapid', to: '/sapid' },
   { label: 'Privacy', to: '/privacy' }
 ]
 </script>

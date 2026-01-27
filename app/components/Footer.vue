@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const links = [
   { label: 'Privacy Policy', to: '/privacy' },
+  { label: 'Terms & Conditions', to: '/terms' },
   { label: 'Contact', to: '/contact' }
 ]
 </script>

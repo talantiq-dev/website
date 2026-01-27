@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxt/a11y',
     '@nuxt/icon',
   ],
+  ssr: false,
   devtools: { enabled: true },
   compatibilityDate: '2024-04-03',
   css: ['~/assets/css/main.css'],

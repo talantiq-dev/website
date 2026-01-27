@@ -4,8 +4,8 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: 'Sapid - AI Meal Planner by Talantiq',
-  description: 'Your personal AI nutritionist. Sapid creates personalized meal plans, grocery lists, and tracks your nutrition automatically.',
+  title: 'Sapid - AI Meal Planner | Reclaim your mental space',
+  description: 'Your meals taken care of – Always. Sapid helps you plan meals without overthinking, organizes shopping trips by store, and lets you stay in control.',
 })
 </script>
 
@@ -16,49 +16,82 @@ useSeoMeta({
       <div class="container hero-container">
         <div class="hero-content">
             <div class="hero-text">
-              <p class="subtitle">Powered by AI</p>
-              <h1 class="title">Sapid: Eat Smarter, Live Better</h1>
+              <p class="subtitle">Your Meals taken care of – Always</p>
+              <h1 class="title">Sapid: Reclaim your mental space</h1>
               <p class="description">
-                Sapid is your personal AI nutritionist. It learns your tastes, dietary restrictions, and health goals to generate the perfect meal plan for you, every single week.
+                Plan meals without overthinking—you stay in control. Sapid is designed to work with how you already shop, organizing your week without forcing choices or complex optimizations.
               </p>
               
-              <ul class="feature-list">
-                <li class="feature-item">
-                  <Icon name="lucide:brain-circuit" class="feature-icon" />
-                  <span>
-                    <strong>Smart Adaptation.</strong> Sapid learns from your feedback. Didn't like the quinoa salad? You won't see it again.
-                  </span>
-                </li>
-                <li class="feature-item">
-                  <Icon name="lucide:shopping-cart" class="feature-icon" />
-                   <span>
-                    <strong>Automated Grocery Lists.</strong> Generates a sorted shopping list based on your weekly plan, saving you hours at the store.
-                  </span>
-                </li>
-                 <li class="feature-item">
-                  <Icon name="lucide:leaf" class="feature-icon" />
-                  <span>
-                    <strong>Nutrition Tracking.</strong> Automatically tracks macros and calories so you stay on top of your health goals without the manual entry.
-                  </span>
-                </li>
-              </ul>
-              
               <div class="actions">
-                 <button class="btn btn-neutral btn-xl">Download Beta</button>
+                 <button class="btn btn-neutral btn-xl">Get Started</button>
               </div>
             </div>
         </div>
         
         <div class="hero-image">
           <div class="mockup-frame">
-             <!-- Abstract Screen Mockup -->
-             <div class="mockup-screen">
-                <div class="mockup-content">
-                    <Icon name="lucide:utensils" class="mockup-icon" />
-                    <h3 class="mockup-title">Sapid Interface</h3>
-                    <p class="mockup-subtitle">AI generating meal plan...</p>
-                </div>
-             </div>
+              <img src="/sapid-screenshot-planner1.png" alt="Sapid Planner" class="mockup-image" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <div class="feature-grid">
+          <!-- Feature 1: Planning -->
+          <div class="feature-row">
+            <div class="feature-info">
+              <div class="feature-icon-wrapper">
+                <Icon name="lucide:calendar-check" class="feature-icon" />
+              </div>
+              <h2 class="feature-title">Plan Your Week</h2>
+              <p class="feature-text">
+                Add recipes to your planner for the coming days. Use the AI Master Planner to autogenerate a balanced weekly plan in seconds based on your effort goals and preferences.
+              </p>
+            </div>
+            <div class="feature-visual">
+               <div class="mockup-frame-small">
+                  <img src="/sapid-screenshot-plan1.png" alt="Sapid Planning" class="mockup-image" />
+               </div>
+            </div>
+          </div>
+
+          <!-- Feature 2: Shopping -->
+          <div class="feature-row reverse">
+            <div class="feature-visual">
+               <div class="mockup-frame-small">
+                  <img src="/sapid-screenshot-shopping1.png" alt="Sapid Shopping" class="mockup-image" />
+               </div>
+            </div>
+            <div class="feature-info">
+              <div class="feature-icon-wrapper">
+                <Icon name="lucide:shopping-bag" class="feature-icon" />
+              </div>
+              <h2 class="feature-title">Smart Shopping Trips</h2>
+              <p class="feature-text">
+                Ingredients are automatically grouped for your trip. Sapid organizes your list by your favorite stores, making your shopping experience efficient and stress-free.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 3: Importing -->
+          <div class="feature-row">
+            <div class="feature-info">
+              <div class="feature-icon-wrapper">
+                <Icon name="lucide:import" class="feature-icon" />
+              </div>
+              <h2 class="feature-title">Import Your Recipes</h2>
+              <p class="feature-text">
+                Quickly add recipes from any website, plain text, or even a photo of a cookbook! Sapid's AI automatically extracts ingredients, steps, and nutrition so you can start planning immediately.
+              </p>
+            </div>
+            <div class="feature-visual">
+               <div class="mockup-frame-small">
+                  <img src="/sapid-screenshot-import1.png" alt="Sapid Recipe Import" class="mockup-image" />
+               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -108,33 +141,6 @@ useSeoMeta({
   line-height: 1.6;
 }
 
-.feature-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
-}
-
-.feature-item {
-  display: flex;
-  gap: 1rem;
-  color: var(--color-neutral-600);
-}
-
-.feature-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: var(--color-primary-600);
-  flex-shrink: 0;
-  margin-top: 0.25rem;
-}
-
-strong {
-  font-weight: 600;
-  color: var(--color-neutral-900);
-}
-
 .hero-image {
   display: flex;
   justify-content: center;
@@ -150,55 +156,120 @@ strong {
   max-width: 30rem;
 }
 
-.mockup-screen {
-  background-color: var(--color-neutral-800);
-  aspect-ratio: 16/9;
+.mockup-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+/* Features Section */
+.features-section {
+  padding: 6rem 0;
+  background-color: var(--color-neutral-50);
+}
+
+.feature-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .feature-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .feature-row.reverse .feature-visual {
+    order: -1;
+  }
+}
+
+.feature-info {
+  max-width: 32rem;
+}
+
+.feature-icon-wrapper {
+  background-color: var(--color-primary-50);
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  margin-bottom: 1.5rem;
+}
+
+.feature-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-primary-600);
+}
+
+.feature-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+  margin-bottom: 1.25rem;
+}
+
+.feature-text {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-neutral-600);
+}
+
+.mockup-frame-small {
+  background-color: var(--color-neutral-900);
+  border-radius: 1rem;
+  padding: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.abstract-visual {
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-900));
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
-}
-
-.mockup-content {
-  text-align: center;
   color: var(--color-white);
 }
 
-.mockup-icon {
+.placeholder-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.placeholder-icon {
   width: 4rem;
   height: 4rem;
-  color: var(--color-primary-500);
-  margin-bottom: 1rem;
-}
-
-.mockup-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.mockup-subtitle {
-  color: var(--color-neutral-400);
+  opacity: 0.8;
 }
 
 @media (prefers-color-scheme: dark) {
   .hero-section {
     background-color: var(--color-neutral-950);
   }
-  .title {
+  .features-section {
+    background-color: rgba(17, 24, 39, 0.5);
+  }
+  .title, .feature-title {
     color: var(--color-white);
   }
-  .description {
+  .description, .feature-text {
     color: var(--color-neutral-300);
   }
   .subtitle {
     color: var(--color-primary-400);
   }
-  strong {
-    color: var(--color-white);
-  }
-  .feature-item {
-     color: var(--color-neutral-400);
+  .feature-icon-wrapper {
+    background-color: rgba(49, 46, 129, 0.2);
   }
   .feature-icon {
     color: var(--color-primary-400);
