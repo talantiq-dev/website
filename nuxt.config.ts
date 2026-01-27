@@ -9,6 +9,11 @@ export default defineNuxtConfig({
     '@nuxt/icon',
   ],
   ssr: false,
+  hooks: {
+    'prerender:routes'({ routes }) {
+      routes.clear() // don't generate route HTML snapshots
+    }
+  },
   app: {
     baseURL: '/',
   },
