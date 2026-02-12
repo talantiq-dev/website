@@ -6,6 +6,8 @@ definePageMeta({
 })
 
 const email = ref('')
+const confirmText = ref('')
+const honeypot = ref('')
 const isLoading = ref(false)
 const isSuccess = ref(false)
 const error = ref('')
@@ -13,23 +15,44 @@ const error = ref('')
 const handleSubmit = async () => {
   if (!email.value) return
   
+  // Safety measures
+  if (honeypot.value) {
+    console.warn('Bot detected via honeypot')
+    return
+  }
+  
+  if (confirmText.value !== 'DELETE') {
+    error.value = "Please type 'DELETE' exactly to confirm your request."
+    return
+  }
+  
   isLoading.value = true
   error.value = ''
   
   try {
-    // TODO: Replace with actual API call to delete user data
-    // await $fetch('/api/delete-user', {
-    //   method: 'POST',
-    //   body: { email: email.value }
-    // })
+    const response = await fetch('https://ai-proxy-607107386172.us-central1.run.app/delete-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-sapid-secret': 'sapid-review-bypass-secret-2026'
+      },
+      body: JSON.stringify({ email: email.value })
+    })
+
+    const data = await response.json()
     
-    // Simulating API request for now
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error('No account found with this email address.')
+      }
+      throw new Error(data.error || 'Failed to process request.')
+    }
     
     isSuccess.value = true
     email.value = ''
-  } catch (e) {
-    error.value = 'An error occurred while processing your request. Please try again.'
+    confirmText.value = ''
+  } catch (e: any) {
+    error.value = e.message || 'An error occurred while processing your request. Please try again.'
   } finally {
     isLoading.value = false
   }
@@ -55,6 +78,11 @@ const handleSubmit = async () => {
       </div>
 
       <form v-else @submit.prevent="handleSubmit" class="delete-form">
+        <!-- Honeypot field for bot protection -->
+        <div class="field-hp" aria-hidden="true" style="display: none;">
+          <input v-model="honeypot" type="text" name="hp_field" tabindex="-1" autocomplete="off" />
+        </div>
+
         <div class="form-group">
           <label for="email">Email Address</label>
           <input 
@@ -68,6 +96,19 @@ const handleSubmit = async () => {
             class="form-input" 
           />
         </div>
+
+        <div class="form-group">
+          <label for="confirmText">To confirm, type 'DELETE' below</label>
+          <input 
+            v-model="confirmText"
+            type="text" 
+            name="confirmText" 
+            id="confirmText" 
+            required
+            placeholder="DELETE"
+            class="form-input" 
+          />
+        </div>
         
         <div v-if="error" class="error-message">
           {{ error }}
@@ -77,7 +118,7 @@ const handleSubmit = async () => {
           <button 
             type="submit" 
             class="btn btn-danger btn-xl btn-block"
-            :disabled="isLoading"
+            :disabled="isLoading || confirmText !== 'DELETE'"
           >
             <span v-if="isLoading">Processing...</span>
             <span v-else>Delete My Data</span>
