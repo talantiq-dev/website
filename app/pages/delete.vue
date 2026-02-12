@@ -191,39 +191,4 @@ label {
   width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  .section-title {
-    color: var(--color-white);
-  }
-  .section-subtitle {
-    color: var(--color-neutral-300);
-  }
-  label {
-    color: var(--color-white);
-  }
-  .form-input {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: var(--color-neutral-700);
-    color: var(--color-white);
-  }
-  .form-input:focus {
-    outline-color: var(--color-primary-500);
-    border-color: var(--color-primary-500);
-  }
-  .success-message {
-    background-color: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.2);
-  }
-  .success-message h3 {
-    color: var(--color-white);
-  }
-  .success-message p {
-    color: var(--color-neutral-300);
-  }
-  .error-message {
-    background-color: rgba(220, 38, 38, 0.1);
-    border-color: rgba(220, 38, 38, 0.2);
-    color: #F87171;
-  }
-}
 </style>

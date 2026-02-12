@@ -81,7 +81,7 @@ definePageMeta({
 .prose {
   max-width: 65ch;
   margin: 0 auto;
-  color: var(--color-neutral-700);
+  color: var(--color-neutral-800);
   line-height: 1.75;
 }
 
@@ -131,18 +131,4 @@ definePageMeta({
   border-top: 1px solid var(--color-neutral-200);
 }
 
-@media (prefers-color-scheme: dark) {
-  .prose {
-    color: var(--color-neutral-300);
-  }
-  .prose h1, .prose h2 {
-    color: var(--color-white);
-  }
-  .prose a {
-    color: var(--color-primary-400);
-  }
-  .prose hr {
-    border-color: var(--color-neutral-800);
-  }
-}
 </style>

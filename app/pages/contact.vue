@@ -59,7 +59,7 @@ definePageMeta({
 
 .section-subtitle {
   font-size: 1.125rem;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 .contact-form {
