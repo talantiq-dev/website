@@ -1,17 +1,19 @@
 /* Global Variables */
 :root {
-   /* Colors - Indigo Primary */
-   --color-primary-50: #eef2ff;
-   --color-primary-100: #e0e7ff;
-   --color-primary-200: #c7d2fe;
-   --color-primary-300: #a5b4fc;
-   --color-primary-400: #818cf8;
-   --color-primary-500: #6366f1;
-   --color-primary-600: #4f46e5;
-   --color-primary-700: #4338ca;
-   --color-primary-800: #3730a3;
-   --color-primary-900: #312e81;
-   --color-primary-950: #1e1b4b;
+   /* Colors - Sapid Green Primary */
+   /* Generated based on #3b8048 (600) */
+   --color-primary-50: #f5fbf6;
+   --color-primary-100: #eaf7ec;
+   --color-primary-200: #d4edd9;
+   --color-primary-300: #aee0b7;
+   --color-primary-400: #7dc98b;
+   --color-primary-500: #52ad66;
+   --color-primary-600: #3b8048;
+   /* Sapid Primary */
+   --color-primary-700: #2f663a;
+   --color-primary-800: #265230;
+   --color-primary-900: #204229;
+   --color-primary-950: #112416;
 
    /* Colors - Neutral Gray */
    --color-neutral-50: #f9fafb;
@@ -28,6 +30,8 @@
 
    --color-white: #ffffff;
    --color-black: #000000;
+   --color-background-light: #fef9f0;
+   /* Sapid Cream */
 
    /* Layout */
    --container-width: 1200px;
@@ -50,16 +54,11 @@
 body {
    font-family: var(--font-sans);
    color: var(--color-neutral-900);
-   background-color: var(--color-white);
+   background-color: var(--color-background-light);
    line-height: 1.5;
 }
 
-@media (prefers-color-scheme: dark) {
-   body {
-      color: var(--color-neutral-100);
-      background-color: var(--color-neutral-950);
-   }
-}
+/* Dark mode disabled - using light Sapid theme only */
 
 a {
    text-decoration: none;
@@ -107,16 +106,7 @@ a {
    background-color: var(--color-neutral-200);
 }
 
-@media (prefers-color-scheme: dark) {
-   .btn-neutral {
-      background-color: var(--color-neutral-800);
-      color: var(--color-neutral-100);
-   }
 
-   .btn-neutral:hover {
-      background-color: var(--color-neutral-700);
-   }
-}
 
 .btn-ghost {
    background-color: transparent;
@@ -128,16 +118,7 @@ a {
    color: var(--color-neutral-900);
 }
 
-@media (prefers-color-scheme: dark) {
-   .btn-ghost {
-      color: var(--color-neutral-400);
-   }
 
-   .btn-ghost:hover {
-      background-color: var(--color-neutral-800);
-      color: var(--color-neutral-200);
-   }
-}
 
 .btn-danger {
    background-color: #DC2626;
@@ -163,16 +144,7 @@ a {
    background-color: var(--color-neutral-50);
 }
 
-@media (prefers-color-scheme: dark) {
-   .btn-outline {
-      border-color: var(--color-neutral-600);
-      color: var(--color-neutral-100);
-   }
 
-   .btn-outline:hover {
-      background-color: var(--color-neutral-800);
-   }
-}
 
 .btn-xl {
    padding: 1rem 2rem;

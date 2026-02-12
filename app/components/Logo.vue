@@ -29,9 +29,5 @@
   transform: translateX(-2px);
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    color: var(--color-white);
-  }
-}
+
 </style>

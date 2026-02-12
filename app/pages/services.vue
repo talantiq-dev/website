@@ -100,7 +100,7 @@ const services = [
 }
 
 .service-detail-card {
-  background-color: var(--color-neutral-50);
+  background-color: var(--color-white);
   border: 1px solid var(--color-neutral-200);
   border-radius: 1.5rem;
   padding: 2rem;
@@ -165,32 +165,5 @@ const services = [
   width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  .page-title {
-    color: var(--color-white);
-  }
-  .page-subtitle {
-    color: var(--color-neutral-300);
-  }
-  
-  .service-detail-card {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .card-title {
-    color: var(--color-white);
-  }
-  
-  .card-description, .feature-item {
-    color: var(--color-neutral-300);
-  }
-  
-  .icon-box {
-    background-color: rgba(49, 46, 129, 0.2);
-  }
-  .card-icon, .check-icon {
-    color: var(--color-primary-400);
-  }
-}
+
 </style>

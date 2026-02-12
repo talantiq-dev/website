@@ -32,7 +32,7 @@ useHead({
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-color: var(--color-white);
+  background-color: var(--color-background-light);
   color: var(--color-neutral-900);
 }
 
@@ -40,10 +40,5 @@ useHead({
   flex: 1;
 }
 
-@media (prefers-color-scheme: dark) {
-  .site-wrapper {
-    background-color: var(--color-neutral-950);
-    color: var(--color-neutral-100);
-  }
-}
+
 </style>

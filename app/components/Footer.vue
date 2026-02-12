@@ -33,7 +33,7 @@ const links = [
 <style scoped>
 .site-footer {
   border-top: 1px solid var(--color-neutral-200);
-  background-color: var(--color-white);
+  background-color: var(--color-background-light);
   padding: 3rem 0;
 }
 
@@ -82,19 +82,5 @@ const links = [
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .site-footer {
-    border-color: var(--color-neutral-800);
-    background-color: var(--color-neutral-900);
-  }
-  .copyright {
-    color: var(--color-neutral-400);
-  }
-  .footer-link {
-    color: var(--color-neutral-400);
-  }
-  .footer-link:hover {
-    color: var(--color-white);
-  }
-}
+
 </style>

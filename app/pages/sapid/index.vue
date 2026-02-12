@@ -18,11 +18,12 @@ useSeoMeta({
               <p class="subtitle">Your Meals taken care of – Always</p>
               <h1 class="title">Sapid: Reclaim your mental space</h1>
               <p class="description">
-                Plan meals without overthinking—you stay in control. Sapid is designed to work with how you already shop, organizing your week without forcing choices or complex optimizations.
+                Plan meals without overthinking; you stay in control. Sapid is designed to work with how you already shop, organizing your week without forcing choices or complex optimizations.
               </p>
               
               <div class="actions">
-                 <button class="btn btn-neutral btn-xl">Get Started</button>
+                 <NuxtLink to="/sapid/proposal" class="btn btn-primary btn-xl">Read the Vision</NuxtLink>
+                 <NuxtLink to="/sapid/technical" class="btn btn-outline btn-xl">Technical Docs</NuxtLink>
               </div>
             </div>
         </div>
@@ -98,7 +99,7 @@ useSeoMeta({
 .hero-section {
   position: relative;
   overflow: hidden;
-  background-color: var(--color-white);
+  background-color: var(--color-background-light);
   padding: 6rem 0;
 }
 
@@ -134,6 +135,12 @@ useSeoMeta({
   color: var(--color-neutral-700);
   margin-bottom: 2.5rem;
   line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .hero-image {
@@ -247,27 +254,5 @@ useSeoMeta({
   opacity: 0.8;
 }
 
-@media (prefers-color-scheme: dark) {
-  .hero-section {
-    background-color: var(--color-neutral-950);
-  }
-  .features-section {
-    background-color: rgba(17, 24, 39, 0.5);
-  }
-  .title, .feature-title {
-    color: var(--color-white);
-  }
-  .description, .feature-text {
-    color: var(--color-neutral-300);
-  }
-  .subtitle {
-    color: var(--color-primary-400);
-  }
-  .feature-icon-wrapper {
-    background-color: rgba(49, 46, 129, 0.2);
-  }
-  .feature-icon {
-    color: var(--color-primary-400);
-  }
-}
+
 </style>

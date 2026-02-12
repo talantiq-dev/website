@@ -41,7 +41,7 @@ const items = [
   z-index: 50;
   width: 100%;
   border-bottom: 1px solid var(--color-neutral-200);
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(254, 249, 240, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -70,10 +70,5 @@ const items = [
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .site-header {
-    border-color: var(--color-neutral-800);
-    background-color: rgba(17, 24, 39, 0.75); /* neutral-900 */
-  }
-}
+
 </style>

@@ -80,6 +80,7 @@ const services = [
             </p>
             <div class="product-actions">
               <NuxtLink to="/sapid" class="btn btn-neutral btn-xl">Explore Sapid</NuxtLink>
+              <NuxtLink to="/sapid/proposal" class="btn btn-product-secondary btn-xl">Read the Vision</NuxtLink>
             </div>
         </div>
         
@@ -106,7 +107,7 @@ const services = [
   position: absolute;
   inset: 0;
   z-index: -10;
-  background: radial-gradient(circle at top, var(--color-primary-100), var(--color-white));
+  background: radial-gradient(circle at top, var(--color-primary-100), var(--color-background-light));
   opacity: 0.5;
 }
 
@@ -140,8 +141,12 @@ const services = [
 }
 
 /* Services */
+.service-detail-card {
+  background-color: var(--color-white);
+}
+
 .services-section {
-  background-color: var(--color-neutral-50);
+  /* background-color: transparent; // Default to body background (eggshell) */
 }
 
 .section-header {
@@ -248,14 +253,14 @@ const services = [
 
 .badge {
   display: inline-block;
-  background-color: rgba(99, 102, 241, 0.2); /* primary-500 / 20% */
+  background-color: rgba(59, 128, 72, 0.2); /* Sapid primary-600 / 20% */
   color: var(--color-primary-200);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  border: 1px solid rgba(99, 102, 241, 0.4);
+  border: 1px solid rgba(59, 128, 72, 0.4);
 }
 
 .product-title {
@@ -268,6 +273,22 @@ const services = [
   font-size: 1.125rem;
   color: var(--color-primary-100);
   margin-bottom: 2.5rem;
+}
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-product-secondary {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+}
+
+.btn-product-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .product-image-wrapper {
@@ -296,42 +317,5 @@ const services = [
 }
 
 /* Dark Mode Overrides */
-@media (prefers-color-scheme: dark) {
-  .hero-background {
-    background: radial-gradient(circle at top, var(--color-primary-900), var(--color-neutral-950));
-    opacity: 0.3;
-  }
-  .hero-title {
-    color: var(--color-white);
-  }
-  .hero-subtitle {
-    color: var(--color-neutral-300);
-  }
-  .highlight {
-    color: var(--color-primary-400);
-  }
-  
-  .services-section {
-    background-color: rgba(17, 24, 39, 0.5); /* neutral-900/50 */
-  }
-  .section-title {
-    color: var(--color-white);
-  }
-  .section-subtitle {
-     color: var(--color-neutral-300);
-  }
-  
-  .service-icon-wrapper {
-    background-color: rgba(49, 46, 129, 0.2); /* primary-900/20 */
-  }
-  .service-icon {
-     color: var(--color-primary-400);
-  }
-  .service-title {
-     color: var(--color-white);
-  }
-  .service-description {
-     color: var(--color-neutral-300);
-  }
-}
+
 </style>
