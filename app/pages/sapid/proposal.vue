@@ -14,7 +14,7 @@ useSeoMeta({
     <div class="container content-container">
       <header class="proposal-header">
         <p class="brand-link"><NuxtLink to="/sapid">Sapid</NuxtLink>: Turning Saved Recipes into Real Meals</p>
-        <h1 class="main-title">The Problem</h1>
+        <h1 class="main-title">The Problem: Recipe Overload & Execution Gap</h1>
       </header>
 
       <div class="prose">
@@ -40,6 +40,15 @@ useSeoMeta({
         </ul>
         <p>Most tools solve one part of this. None connect the full loop in a way that feels calm and practical.</p>
         <p>Sapid was built to close that loop.</p>
+
+        <h2>The Target Audience</h2>
+        <p>Sapid is designed for <strong>busy individuals and families</strong> who love food but struggle with the logistics of daily cooking.</p>
+        <ul>
+            <li><strong>The Recipe Collector:</strong> People with hundreds of bookmarks, screenshots, and cookbooks who never know what to cook for dinner.</li>
+            <li><strong>The Time-Poor Family:</strong> Households that need a structured system to reduce decision fatigue and grocery store friction.</li>
+            <li><strong>The Health-Conscious Planner:</strong> Users who want to eat home-cooked meals but need a better way to organize their shopping and pantry.</li>
+        </ul>
+        <p>Whether it's a parent managing a household or a cooking enthusiast organizing their digital collection, Sapid provides the tools to move from "saving" to "serving".</p>
 
         <h2>The Solution</h2>
         <p>Sapid is an execution layer for saved recipes.</p>
@@ -79,6 +88,17 @@ useSeoMeta({
             Help people cook more of what they already love.<br>
             Turn saved recipes into shared meals.
         </p>
+        
+        <h2>Monetization Strategy</h2>
+        <p>Sapid is built on a "Freemium" model, powered by <strong>RevenueCat</strong> for seamless cross-platform subscription management.</p>
+        <p>While core features like manual recipe entry and basic planning are free, we offer a <strong>Sapid Pro</strong> subscription that unlocks the "magic" of AI-driven productivity:</p>
+        <ul>
+            <li><strong>AI Intelligent Import:</strong> Instant extraction from URLs, photos, and screenshots.</li>
+            <li><strong>AI Side-Dish Suggestions:</strong> Intelligent meal completion based on ingredients and flavor profiles.</li>
+            <li><strong>Unlimited Cloud Sync:</strong> Real-time synchronization across all family devices.</li>
+        </ul>
+        <p>By using RevenueCat, we ensure that entitlements are securely validated server-side, providing a professional and localized experience for our global user base.</p>
+
         <p class="final-statement">Less scrolling. More cooking. More dinners that actually happen.</p>
       </div>
       

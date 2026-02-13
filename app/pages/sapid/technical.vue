@@ -80,13 +80,15 @@ onMounted(() => {
           
           <p>The system is built on a modern distributed architecture:</p>
           <ul>
-            <li><strong>Mobile App:</strong> The core UX engine, handling planning logic and local heuristics.</li>
-            <li><strong>Clerk:</strong> Secure authentication and cross-service identity management.</li>
-            <li><strong>Firebase:</strong> Scalable real-time data storage and cross-device sync.</li>
-            <li><strong>RevenueCat:</strong> Professional-grade subscription and entitlement management.</li>
-            <li><strong>Express Proxy:</strong> Our secured gateway for AI access and server-side validation.</li>
-            <li><strong>AI Provider:</strong> Google Vertex AI (Gemini 2.5 Flash/Lite) for intelligent extraction.</li>
-            <li><strong>Mixpanel:</strong> Deep behavior analytics to drive product evolution.</li>
+            <li><strong>Frontend (Mobile):</strong> React Native + Expo (SDK 54), Expo Router for file-based navigation.</li>
+            <li><strong>Frontend (Website):</strong> Nuxt 3 with Vue 3 and Tailwind CSS.</li>
+            <li><strong>Identity:</strong> Clerk for authentication and cross-service identity management.</li>
+            <li><strong>Data Layer:</strong> Firebase Firestore (Real-time DB) and Firebase Storage (Images).</li>
+            <li><strong>Monetization:</strong> RevenueCat for cross-platform subscriptions and entitlement enforcement.</li>
+            <li><strong>Backend Layer:</strong> Node.js Express Proxy hosted on Google Cloud Run.</li>
+            <li><strong>AI Integration:</strong> Google Vertex AI (Gemini 2.5 Flash) for multimodal recipe extraction.</li>
+            <li><strong>Analytics:</strong> Mixpanel for event-driven behavior analysis.</li>
+            <li><strong>Local Logic:</strong> Zustand for state management and Fuse.js for fuzzy ingredient matching.</li>
           </ul>
 
           <div class="diagram-container">
@@ -152,7 +154,8 @@ graph TD
           <p>Our monetization engine is designed for professional reliability, centered around the <strong>Sapid Pro</strong> entitlement. We chose RevenueCat because it abstracts the complexity of cross-platform billing, expiration dates, and grace periods.</p>
           
           <h4>Server-Side Enforcement</h4>
-          <p>Critical to our security is the realization that client-side checks are not enough. While the app UI unlocks features based on RevenueCat status, all <strong>AI-powered Pro features</strong> are strictly routed through our Express proxy. The proxy validates the entitlement by calling RevenueCat directly using a secret server-side token. If the entitlement is invalid, the request is rejected before any AI cost is incurred.</p>
+          <p>Critical to our security is the realization that client-side checks are not enough. While the app UI unlocks features based on RevenueCat status, all <strong>AI-powered Pro features</strong> are strictly routed through our Express proxy. </p>
+          <p>The proxy validates the entitlement by calling the <strong>RevenueCat Subscriber API</strong> directly using a secret server-side token. We implement a custom caching layer (TTL: 5 mins) to minimize latency while ensuring that if a subscription expires or is revoked, the Pro features are immediately disabled. If the entitlement is invalid, the request is rejected before any AI cost or processing is incurred.</p>
 
           <div class="diagram-container">
             <p class="diagram-caption">Diagram 2: Pro Feature Enforcement Flow</p>
