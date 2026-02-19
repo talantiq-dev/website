@@ -22,15 +22,25 @@ useSeoMeta({
               </p>
               
               <div class="actions">
-                 <NuxtLink to="/sapid/proposal" class="btn btn-primary btn-xl">Read the Vision</NuxtLink>
-                 <NuxtLink to="/sapid/technical" class="btn btn-outline btn-xl">Technical Docs</NuxtLink>
+                 <NuxtLink to="https://play.google.com/store/apps/details?id=com.talantiq.sapid" target="_blank" class="btn btn-primary btn-xl">
+                    <Icon name="lucide:play-circle" class="w-5 h-5 mr-2" />
+                    Google Play
+                 </NuxtLink>
+                 <button class="btn btn-outline btn-xl" disabled>
+                    <Icon name="lucide:smartphone" class="w-5 h-5 mr-2" />
+                    App Store
+                 </button>
+              </div>
+              <div class="sub-actions">
+                 <NuxtLink to="/sapid/proposal" class="link">Read the Vision</NuxtLink>
+                 <NuxtLink to="/sapid/technical" class="link">Technical Docs</NuxtLink>
               </div>
             </div>
         </div>
         
         <div class="hero-image">
           <div class="mockup-frame">
-              <img src="/sapid-screenshot-planner1.png" alt="Sapid Planner" class="mockup-image" />
+              <img src="/onboarding-1.png" alt="Sapid Planner" class="mockup-image" />
           </div>
         </div>
       </div>
@@ -59,7 +69,7 @@ useSeoMeta({
           <div class="feature-row reverse">
             <div class="feature-visual">
                <div class="mockup-frame-small">
-                  <img src="/sapid-screenshot-shopping1.png" alt="Sapid Shopping" class="mockup-image" />
+                  <img src="/shoppinglist-feature.png" alt="Sapid Shopping" class="mockup-image" />
                </div>
             </div>
             <div class="feature-info">
@@ -73,7 +83,7 @@ useSeoMeta({
             </div>
           </div>
 
-          <div class="feature-row">
+           <div class="feature-row">
             <div class="feature-info">
               <div class="feature-icon-wrapper">
                 <Icon name="lucide:import" class="feature-icon" />
@@ -85,8 +95,25 @@ useSeoMeta({
             </div>
             <div class="feature-visual">
                <div class="mockup-frame-small">
-                  <img src="/sapid-screenshot-import1.png" alt="Sapid Recipe Import" class="mockup-image" />
+                  <img src="/import-recipe.png" alt="Sapid Recipe Import" class="mockup-image" />
                </div>
+            </div>
+          </div>
+
+          <div class="feature-row reverse">
+            <div class="feature-visual">
+               <div class="mockup-frame-small">
+                  <img src="/handsfree-cooking.png" alt="Hands-free Cooking" class="mockup-image" />
+               </div>
+            </div>
+            <div class="feature-info">
+              <div class="feature-icon-wrapper">
+                <Icon name="lucide:chef-hat" class="feature-icon" />
+              </div>
+              <h2 class="feature-title">Hands-free Cooking</h2>
+              <p class="feature-text">
+                Cook without the mess. Sapid's hands-free mode lets you step through recipes with simple gestures or voice commands, keeping your screen clean and your focus on the food.
+              </p>
             </div>
           </div>
         </div>
@@ -141,6 +168,24 @@ useSeoMeta({
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.sub-actions {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.link {
+  color: var(--color-neutral-600);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.link:hover {
+  color: var(--color-primary-600);
 }
 
 .hero-image {

@@ -81,12 +81,11 @@ onMounted(() => {
           <p>The system is built on a modern distributed architecture:</p>
           <ul>
             <li><strong>Frontend (Mobile):</strong> React Native + Expo (SDK 54), Expo Router for file-based navigation.</li>
-            <li><strong>Frontend (Website):</strong> Nuxt 3 with Vue 3 and Tailwind CSS.</li>
             <li><strong>Identity:</strong> Clerk for authentication and cross-service identity management.</li>
             <li><strong>Data Layer:</strong> Firebase Firestore (Real-time DB) and Firebase Storage (Images).</li>
             <li><strong>Monetization:</strong> RevenueCat for cross-platform subscriptions and entitlement enforcement.</li>
-            <li><strong>Backend Layer:</strong> Node.js Express Proxy hosted on Google Cloud Run.</li>
-            <li><strong>AI Integration:</strong> Google Vertex AI (Gemini 2.5 Flash) for multimodal recipe extraction.</li>
+            <li><strong>Backend Layer:</strong> Node.js Express hosted on Google Cloud Run.</li>
+            <li><strong>AI Integration:</strong> Google Vertex AI for multimodal recipe extraction.</li>
             <li><strong>Analytics:</strong> Mixpanel for event-driven behavior analysis.</li>
             <li><strong>Local Logic:</strong> Zustand for state management and Fuse.js for fuzzy ingredient matching.</li>
           </ul>
