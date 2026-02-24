@@ -247,21 +247,34 @@ sequenceDiagram
 
         <section id="import-pipeline">
           <h2>7. Recipe Import and Matching Pipeline</h2>
-          <p>The import pipeline is Sapid's core differentiator. We combine deep AI reasoning with fast, local heuristics to create a "magic" import experience that actually understands food.</p>
-          <p><strong>Hybrid Intelligence:</strong> We use AI for the initial extraction (turning an image or URL into JSON components), but we perform <strong>heuristic ingredient matching</strong> using <code>fuse.js</code> on the client. This allows for instant fuzzy matching of extracted ingredients to our normalized catalog, reducing costs and providing immediate feedback for user validation.</p>
+          <p>The import pipeline is Sapid's core differentiator. We combine deep AI reasoning with fast, local heuristics to create a "magic" import experience that actually understands food. To handle complex sources like Instagram Reels or TikTok videos, we utilize a fully asynchronous pipeline.</p>
+          
+          <p><strong>Asynchronous Cloud Processing:</strong> For video-heavy URLs, the client offloads the request to a Cloud Tasks queue. Our Express proxy acts as a background worker, leveraging tools like Supadata to extract video transcripts and metadata. The user is free to continue using the app or even close it. Once complete, the parsed recipe is synchronized back to the user's device via Firebase real-time listeners.</p>
+          
+          <p><strong>Hybrid Intelligence:</strong> Regardless of how the recipe was extracted, we perform <strong>heuristic ingredient matching</strong> using <code>fuse.js</code> on the client. This allows for instant fuzzy matching of extracted ingredients to our normalized catalog, reducing server costs and providing immediate feedback for user validation.</p>
 
           <div class="diagram-container">
-            <p class="diagram-caption">Diagram 5: Import & Matching Pipeline</p>
+            <p class="diagram-caption">Diagram 5: Asynchronous Import & Matching Pipeline</p>
             <pre class="mermaid">
 graph TD
-    Input[URL / Photo / Text] --> Jina[Content Preprocessing]
-    Jina --> Proxy[AI Extraction via Proxy]
-    Proxy --> Local[Client Heuristic Matching]
+    Input[URL / Mobile Share] --> Route{Source Type}
+    
+    Route -->|Standard Web| Sync[Synchronous AI Extraction]
+    Route -->|Social Media / Video| Async[Cloud Tasks Background Job]
+    
+    Async --> Supa[Supadata Transcript Extraction]
+    Supa --> Proxy[AI Extraction via Express Proxy]
+    Sync --> Proxy
+    
+    Proxy --> DB[(Firebase Firestore)]
+    DB --> |Real-time Sync| ClientApp[Mobile App]
+    
+    ClientApp --> Local[Client Heuristic Matching]
     Local --> Fuse[fuse.js Fuzzy Search]
     Fuse --> Validation[User Review & Edit]
-    Validation --> Storage[(Firebase Storage)]
 
     style Proxy fill:#3b8048,color:#fff
+    style Async fill:#3b8048,color:#fff
     style Local fill:#fef9f0,stroke:#3b8048
     style Fuse fill:#fef9f0,stroke:#3b8048
             </pre>
