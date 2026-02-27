@@ -32,6 +32,7 @@ useSeoMeta({
                  </button>
               </div>
               <div class="sub-actions">
+                 <NuxtLink to="/sapid/next" class="link highlight-link">✨ Meet the AI Sous-Chef</NuxtLink>
                  <NuxtLink to="/sapid/proposal" class="link">Read the Vision</NuxtLink>
                  <NuxtLink to="/sapid/technical" class="link">Technical Docs</NuxtLink>
               </div>
@@ -186,6 +187,16 @@ useSeoMeta({
 
 .link:hover {
   color: var(--color-primary-600);
+}
+
+.highlight-link {
+  color: var(--color-primary-600);
+  font-weight: 600;
+  text-decoration-color: rgba(59, 128, 72, 0.4);
+}
+
+.highlight-link:hover {
+  text-decoration-color: var(--color-primary-600);
 }
 
 .hero-image {
