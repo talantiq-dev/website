@@ -62,6 +62,7 @@ Body:
   ```
 
 - Mention Sapid where it genuinely solves the step being discussed, typically 2–4 times, never in every section. Be honest about what is Premium.
+- External links only to domains listed in `seo/allowed-domains.txt` (platform help pages, official and scientific sources). If a source you need isn't on the list, describe it without a link and mention it in your summary. Plain Markdown only: no HTML.
 - Internal links (relative paths): the recipe extractor and/or `/sapid`, plus related posts that already exist in `content/blog/` (same language). At least 2, ideally 3+.
 - End with `## FAQ` (German: `## Häufige Fragen`) containing 3–4 questions people actually search for, each as `### Question?` followed by a 2–4 sentence answer.
 - The page adds an app download box at the end; don't add your own closing pitch.

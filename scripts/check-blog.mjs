@@ -21,6 +21,13 @@ const BANNED = {
   de: ['in der heutigen schnelllebigen', 'tauchen wir ein', 'revolutionieren', 'nahtlos', 'zusammenfassend lässt sich sagen', 'kulinarische reise', 'ohne weitere umschweife'],
 }
 
+// External links are limited to trusted domains so nothing a web page tells the writer can publish a link elsewhere
+const ALLOWED_DOMAINS = readFileSync(join(ROOT, 'seo/allowed-domains.txt'), 'utf8')
+  .split('\n')
+  .map((line) => line.replace(/#.*/, '').trim().toLowerCase())
+  .filter(Boolean)
+const isAllowedHost = (host) => ALLOWED_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`))
+
 const FAQ_HEADING = /^##\s+(FAQ|Frequently asked questions|Häufige Fragen|Häufig gestellte Fragen)\b/im
 
 function parseFrontmatter(source) {
@@ -157,6 +164,27 @@ for (const post of posts) {
   }
   if (!internal.some((href) => href.startsWith('/sapid'))) add(post, 'error', 'Link to /sapid/recipe-extractor or /sapid at least once')
   if (internal.length < 2) add(post, 'warning', `Only ${internal.length} internal link(s); aim for 3+ (tool, /sapid, related posts)`)
+
+  // Every URL anywhere in the post (links, images, bare URLs) must point at an allowed domain
+  const withoutCode = body.replace(/```[\s\S]*?```/g, '').replace(/`[^`\n]*`/g, '')
+  for (const raw of withoutCode.match(/https?:\/\/[^\s)<>"'\]]+/g) || []) {
+    let host
+    try {
+      host = new URL(raw).hostname.toLowerCase().replace(/^www\./, '')
+    } catch {
+      add(post, 'error', `Malformed URL ${raw}`)
+      continue
+    }
+    if (host === 'talantiq.com') continue // reported above as "use a relative link"
+    if (!isAllowedHost(host)) add(post, 'error', `${host} is not in seo/allowed-domains.txt; link only to the domains listed there`)
+  }
+  for (const href of links) {
+    if (!/^(https:\/\/|\/|#)/.test(href)) add(post, 'error', `Link target ${href} must start with https://, / or #`)
+  }
+  // Raw HTML and MDC attribute/inline-component syntax could inject markup or scripts into the page
+  if (/<\/?[a-zA-Z][a-zA-Z0-9-]*(\s[^>]*)?\/?>/.test(withoutCode)) add(post, 'error', 'Raw HTML is not allowed in posts; use Markdown')
+  if (/\]\([^)]*\)\{/.test(withoutCode)) add(post, 'error', 'Attribute blocks after links or images ({...}) are not allowed')
+  if (/(^|\s):[a-zA-Z][\w-]*[{[]/m.test(withoutCode)) add(post, 'error', 'Inline components (:name{...}) are not allowed')
 
   // MDC components
   const opens = (body.match(/^::tool-cta\s*$/gm) || []).length

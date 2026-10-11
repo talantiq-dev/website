@@ -1,0 +1,38 @@
+# Domains blog posts may link to (scripts/check-blog.mjs rejects any other external link).
+# One domain per line; subdomains are included (tiktok.com allows support.tiktok.com).
+# The weekly workflow can't change this file: it only accepts the two new post files.
+
+# Platforms whose features posts explain (help pages, creators' posts)
+tiktok.com
+instagram.com
+facebook.com
+youtube.com
+pinterest.com
+google.com
+apple.com
+android.com
+
+# Reference
+wikipedia.org
+
+# Food, food waste and nutrition authorities
+unep.org
+fao.org
+who.int
+europa.eu
+usda.gov
+fda.gov
+epa.gov
+foodsafety.gov
+nhs.uk
+food.gov.uk
+wrap.ngo
+lovefoodhatewaste.com
+bmel.de
+zugutfuerdietonne.de
+bzfe.de
+verbraucherzentrale.de
+dge.de
+bfr.bund.de
+umweltbundesamt.de
+destatis.de
