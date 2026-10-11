@@ -1,321 +1,317 @@
 <script setup lang="ts">
-definePageMeta({
-  title: 'Home'
-})
+const config = useRuntimeConfig()
 
 useSeoMeta({
-  title: 'Talantiq Solutions - Premium App Development & IT Consulting',
-  description: 'Talentiq Solutions delivers cutting-edge mobile apps and strategic IT consulting. Discover our AI-powered meal planner, Sapid.',
-  ogTitle: 'Talantiq Solutions - Innovating for the Future',
-  ogDescription: 'Premium App Development & IT Consulting services. Creators of Sapid.',
+  title: 'Sapid Meal Planner & App Development',
+  description: 'Talentiq Solutions builds Sapid, the meal planner that imports recipes from TikTok, Instagram and blogs, plans your week and writes one shopping list. We also build apps for clients.',
+  ogTitle: 'Sapid by Talentiq: cook the recipes you save',
+  ogDescription: 'Import recipes from anywhere, plan your week, shop with one list and cook hands-free.',
+  ogImage: `${config.public.siteUrl}/og-sapid.png`,
+  ogUrl: config.public.siteUrl,
+  twitterCard: 'summary_large_image',
 })
+
+useHead({
+  link: [{ rel: 'canonical', href: `${config.public.siteUrl}/` }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        'name': 'Talentiq Solutions',
+        'url': config.public.siteUrl,
+        'logo': `${config.public.siteUrl}/sapid-icon.png`,
+      }),
+    },
+  ],
+})
+
+const pillars = [
+  { icon: 'lucide:bookmark-plus', title: 'Save', text: 'Recipes from TikTok, Instagram, YouTube, blogs and cookbook photos, all in one place.' },
+  { icon: 'lucide:calendar-days', title: 'Plan', text: 'A realistic week with quick meals and leftover nights, or let the AI suggest one.' },
+  { icon: 'lucide:shopping-cart', title: 'Shop', text: 'One list for the whole week, sorted by the stores you actually use.' },
+  { icon: 'lucide:mic', title: 'Cook', text: 'Step-by-step guidance and timers you control by voice, hands-free.' },
+]
+
 const services = [
-  {
-    title: 'App Development',
-    description: 'Native and cross-platform mobile applications built with cutting-edge technology.',
-    icon: 'lucide:smartphone'
-  },
-  {
-    title: 'IT Consulting',
-    description: 'Strategic technology guidance to optimize your business operations and digital transformation.',
-    icon: 'lucide:briefcase'
-  }
+  { icon: 'lucide:smartphone', title: 'App development', text: 'Native and cross-platform iOS and Android apps, from prototype to App Store.' },
+  { icon: 'lucide:brain-circuit', title: 'AI features', text: 'Voice agents, multimodal assistants and AI workflows that work in production, like the ones inside Sapid.' },
+  { icon: 'lucide:briefcase', title: 'IT consulting', text: 'Architecture reviews, cloud infrastructure and modernizing legacy systems.' },
 ]
 </script>
 
 <template>
-  <div class="home-page">
-    <section class="hero-section">
-      <div class="hero-background" />
-      
-      <div class="container hero-content">
-        <h1 class="hero-title">
-          Innovating for the <span class="highlight">Future</span>
-        </h1>
-        <p class="hero-subtitle">
-          Talentiq Solutions delivers premium app development and IT consulting services. We turn complex problems into elegant digital solutions.
-        </p>
-        <div class="hero-actions">
-          <NuxtLink to="/contact" class="btn btn-primary btn-xl">
-            Start a Project
-          </NuxtLink>
-          <NuxtLink to="/services" class="btn btn-ghost btn-xl">
-            Our Services <Icon name="lucide:arrow-right" />
-          </NuxtLink>
+  <div>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Meet Sapid, from Talentiq</span>
+          <h1 class="hero-title">
+            Cook the recipes <span class="highlight">you save</span>
+          </h1>
+          <p class="hero-text">
+            Sapid imports recipes from TikTok, Instagram, YouTube and any blog, plans your week, writes one shopping list sorted by store, and guides you through cooking hands-free.
+          </p>
+          <StoreButtons campaign="home_hero" />
+          <div class="hero-links">
+            <NuxtLink to="/sapid" class="text-link">
+              How Sapid works <Icon name="lucide:arrow-right" />
+            </NuxtLink>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="phone-frame">
+            <img src="/shoppinglist-feature.png" alt="A Sapid shopping list grouped by store">
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="services-section section-py">
-      <div class="container">
+    <section class="tool-section section-py">
+      <div class="container tool-inner">
         <div class="section-header">
-          <h2 class="section-title">What We Do</h2>
+          <span class="eyebrow">Free tool</span>
+          <h2 class="section-title">
+            Got a recipe video? Get the shopping list.
+          </h2>
           <p class="section-subtitle">
-            Comprehensive digital solutions tailored to your unique business needs.
+            Paste any TikTok, Instagram, YouTube or blog link and see what Sapid pulls out. No sign-up needed.
           </p>
         </div>
-        <div class="services-grid">
-          <div v-for="service in services" :key="service.title" class="service-card">
-            <div class="service-icon-wrapper">
-              <Icon :name="service.icon" class="service-icon" />
-            </div>
-            <h3 class="service-title">{{ service.title }}</h3>
-            <p class="service-description">{{ service.description }}</p>
-            <div class="service-link">
-              <NuxtLink to="/services" class="btn btn-ghost link-btn">Learn more <span aria-hidden="true">&rarr;</span></NuxtLink>
-            </div>
-          </div>
+        <RecipeExtractor campaign="home_tool" />
+      </div>
+    </section>
+
+    <section class="section-py">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">
+            One app from inspiration to dinner
+          </h2>
+        </div>
+        <div class="pillars">
+          <NuxtLink v-for="pillar in pillars" :key="pillar.title" to="/sapid" class="pillar card">
+            <span class="pillar-icon"><Icon :name="pillar.icon" /></span>
+            <h3>{{ pillar.title }}</h3>
+            <p>{{ pillar.text }}</p>
+          </NuxtLink>
         </div>
       </div>
     </section>
 
-    <section class="product-section section-py">
-       <div class="product-background" />
-      <div class="container product-container">
-        <div class="product-content">
-            <div class="badge">Featured Product</div>
-            <h2 class="product-title">Sapid: Reclaim your mental space</h2>
-            <p class="product-description">
-              Plan meals without overthinking while staying in control. Sapid is built around how you already shop—helping you organize your meals across different stores without forcing choices.
+    <section class="studio section-py">
+      <div class="container">
+        <div class="studio-header">
+          <div>
+            <span class="eyebrow light">Talentiq Solutions</span>
+            <h2 class="section-title">
+              We build apps like Sapid for you, too
+            </h2>
+            <p class="section-subtitle">
+              The team behind Sapid designs and builds mobile apps and AI features for clients, and advises on the technology underneath.
             </p>
-            <div class="product-actions">
-              <NuxtLink to="/sapid" class="btn btn-neutral btn-xl">Explore Sapid</NuxtLink>
-              <NuxtLink to="/sapid/proposal" class="btn btn-product-secondary btn-xl">Read the Vision</NuxtLink>
-            </div>
-        </div>
-        
-          <div class="product-image-wrapper">
-             <div class="product-mockup">
-                <img src="/sapid-screenshot-planner1.png" alt="Sapid App Screenshot" class="mockup-image" />
-             </div>
           </div>
+          <div class="studio-actions">
+            <NuxtLink to="/contact" class="btn btn-primary btn-xl">
+              Start a project
+            </NuxtLink>
+            <NuxtLink to="/services" class="btn btn-ghost-light btn-xl">
+              Our services <Icon name="lucide:arrow-right" />
+            </NuxtLink>
+          </div>
+        </div>
+        <div class="services">
+          <div v-for="service in services" :key="service.title" class="service">
+            <Icon :name="service.icon" class="service-icon" />
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.text }}</p>
+          </div>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <style scoped>
-/* Hero Section */
-.hero-section {
-  position: relative;
-  overflow: hidden;
-  padding: 8rem 0;
-  text-align: center;
+.hero {
+  padding: 4.5rem 0 5rem;
+  background:
+    radial-gradient(50rem 30rem at 85% 10%, var(--color-primary-100), transparent 70%),
+    var(--color-background-light);
 }
 
-.hero-background {
-  position: absolute;
-  inset: 0;
-  z-index: -10;
-  background: radial-gradient(circle at top, var(--color-primary-100), var(--color-background-light));
-  opacity: 0.5;
-}
-
-.hero-content {
-  display: flex;
-  flex-direction: column;
+.hero-grid {
+  display: grid;
+  gap: 3.5rem;
   align-items: center;
 }
 
 .hero-title {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  color: var(--color-neutral-900);
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 1.25rem;
 }
 
 .highlight {
   color: var(--color-primary-600);
 }
 
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: var(--color-neutral-600);
-  max-width: 42rem;
-  margin-bottom: 2.5rem;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-/* Services */
-.service-detail-card {
-  background-color: var(--color-white);
-}
-
-.services-section {
-  /* background-color: transparent; // Default to body background (eggshell) */
-}
-
-.section-header {
-  text-align: center;
-  max-width: 42rem;
-  margin: 0 auto 4rem;
-}
-
-.section-title {
-  font-size: 2.25rem;
-  color: var(--color-neutral-900);
-  margin-bottom: 1rem;
-}
-
-.section-subtitle {
-  font-size: 1.125rem;
-  color: var(--color-neutral-600);
-}
-
-.services-grid {
-  display: grid;
-  gap: 4rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 1024px) {
-  .services-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.service-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.service-icon-wrapper {
-  background-color: var(--color-primary-50);
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  display: inline-flex;
-}
-
-.service-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: var(--color-primary-600);
-}
-
-.service-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-neutral-900);
-}
-
-.service-description {
-  color: var(--color-neutral-600);
-  margin-bottom: 1rem;
+.hero-text {
+  font-size: 1.1875rem;
+  color: var(--color-neutral-700);
   line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 34rem;
 }
 
-.link-btn {
-  padding: 0;
-  font-weight: 600;
-  color: var(--color-primary-600);
+.hero-links {
+  margin-top: 1.25rem;
 }
-.link-btn:hover {
-  background: none;
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 600;
   color: var(--color-primary-700);
 }
 
-/* Product Section */
-.product-section {
-  position: relative;
-  background-color: var(--color-primary-900);
-  color: var(--color-white);
-  overflow: hidden;
-}
-
-.product-background {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background: radial-gradient(circle at top, var(--color-primary-500), var(--color-primary-900));
-    opacity: 0.4;
-}
-
-.product-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-  position: relative;
-  z-index: 1;
-}
-
-@media (min-width: 1024px) {
-  .product-container {
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-  }
-}
-
-.badge {
-  display: inline-block;
-  background-color: rgba(59, 128, 72, 0.2); /* Sapid primary-600 / 20% */
-  color: var(--color-primary-200);
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(59, 128, 72, 0.4);
-}
-
-.product-title {
-  font-size: 2.25rem;
-  margin-bottom: 1.5rem;
-  color: var(--color-white);
-}
-
-.product-description {
-  font-size: 1.125rem;
-  color: var(--color-primary-100);
-  margin-bottom: 2.5rem;
-}
-
-.product-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.btn-product-secondary {
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: var(--color-white);
-}
-
-.btn-product-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.product-image-wrapper {
+.hero-visual {
   display: flex;
   justify-content: center;
 }
 
-.product-mockup {
-    width: 100%;
-    max-width: 32rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    padding: 1rem;
+@media (min-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1.25fr 1fr;
+  }
 }
 
-.mockup-image {
-    width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
-    display: block;
+.tool-section {
+  background: var(--color-primary-50);
+  border-top: 1px solid var(--color-primary-100);
+  border-bottom: 1px solid var(--color-primary-100);
 }
 
-.mockup-text {
-    color: var(--color-neutral-400);
+.tool-inner {
+  max-width: 760px;
 }
 
-/* Dark Mode Overrides */
+.tool-inner .section-header {
+  margin-bottom: 2rem;
+}
 
+.pillars {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.pillar {
+  padding: 1.75rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pillar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -12px rgba(17, 24, 39, 0.2);
+}
+
+.pillar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.875rem;
+  background: var(--color-primary-100);
+  color: var(--color-primary-700);
+  font-size: 1.375rem;
+  margin-bottom: 1rem;
+}
+
+.pillar h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.pillar p {
+  color: var(--color-neutral-600);
+}
+
+.studio {
+  background: var(--color-neutral-900);
+  color: var(--color-white);
+}
+
+.studio .section-title {
+  color: var(--color-white);
+}
+
+.studio .section-subtitle {
+  color: var(--color-neutral-400);
+}
+
+.eyebrow.light {
+  color: var(--color-primary-300);
+}
+
+.studio-header {
+  display: grid;
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 3.5rem;
+}
+
+.studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn-ghost-light {
+  color: var(--color-neutral-200);
+  background: transparent;
+}
+
+.btn-ghost-light:hover {
+  background: var(--color-neutral-800);
+}
+
+@media (min-width: 960px) {
+  .studio-header {
+    grid-template-columns: 1.5fr 1fr;
+  }
+
+  .studio-actions {
+    justify-content: flex-end;
+  }
+}
+
+.services {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.service {
+  border-top: 1px solid var(--color-neutral-700);
+  padding-top: 1.5rem;
+}
+
+.service-icon {
+  font-size: 1.5rem;
+  color: var(--color-primary-400);
+  margin-bottom: 0.875rem;
+}
+
+.service h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.service p {
+  color: var(--color-neutral-400);
+}
 </style>
