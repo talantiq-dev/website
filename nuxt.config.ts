@@ -8,9 +8,18 @@ export default defineNuxtConfig({
     '@nuxt/a11y',
     '@nuxt/icon',
   ],
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://talantiq.com',
+      // Overridable at build time with NUXT_PUBLIC_API_BASE / NUXT_PUBLIC_TURNSTILE_SITE_KEY
+      apiBase: 'https://eatplan-backend-607107386172.us-central1.run.app',
+      turnstileSiteKey: '',
+    },
+  },
   nitro: {
     prerender: {
-      routes: ['/privacy', '/terms', '/delete', '/contact', '/about']
+      crawlLinks: true,
+      routes: ['/', '/sapid', '/sapid/recipe-extractor', '/blog', '/blog/de', '/privacy', '/terms', '/delete', '/contact', '/services', '/s', '/sitemap.xml']
     }
   },
   app: {

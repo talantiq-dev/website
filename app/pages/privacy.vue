@@ -47,6 +47,13 @@ definePageMeta({
         <h2>Use of Artificial Intelligence</h2>
         <p>The Application uses Artificial Intelligence (AI) technologies to enhance user experience and provide certain features. The AI components may process user data to deliver personalized content, recommendations, or automated functionalities. All AI processing is performed in accordance with this privacy policy and applicable laws. If you have questions about the AI features or data processing, please contact the Service Provider.</p>
 
+        <h2>Recipe Extractor on this Website</h2>
+        <p>When you use the free recipe extractor on talantiq.com, the link you paste is sent to our server (Google Cloud, United States), which fetches that page and uses Google's Gemini AI, and for videos the transcription service Supadata, to extract the ingredients. The extracted ingredient list, the recipe name and the source link are stored for up to 7 days so repeat requests for the same link can be answered without processing it again.</p>
+        <p>To prevent abuse and limit costs, we count requests per visitor. For this we store a one-way hash of your IP address combined with the current date and a secret value. The hash cannot be turned back into your IP address, changes every day, and is deleted after two days. We do not store your IP address itself, and the tool sets no cookies. The legal basis is our legitimate interest in operating the tool securely (Art. 6(1)(f) GDPR).</p>
+
+        <h2>Sharing Meal Plans and Shopping Lists</h2>
+        <p>When you share a meal plan or shopping list from the Application, a read-only copy is stored on our server for 30 days and can be viewed by anyone who has the link. A shared plan contains only the dates, meal names, links to the original recipes and creator names; a shared shopping list contains item names, amounts and which items are ticked off. The copy is linked to your account so you can delete it, and it is deleted automatically after 30 days.</p>
+
         <h2>Opt-Out Rights</h2>
         <p>You can stop all collection of information by the Application easily by uninstalling it. You may use the standard uninstall processes as may be available as part of your mobile device or via the mobile application marketplace or network.</p>
 

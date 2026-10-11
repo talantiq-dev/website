@@ -1,15 +1,7 @@
 export default defineAppConfig({
-  ui: {
-    primary: 'indigo',
-    gray: 'neutral',
-    container: {
-      constrained: 'max-w-7xl',
-    },
-    button: {
-      rounded: 'rounded-full',
-      default: {
-        size: 'md',
-      }
-    }
-  }
+  sapid: {
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.talantiq.sapid',
+    // Leave empty until the iOS app is live; the App Store button then shows "Coming soon"
+    appStoreUrl: '',
+  },
 })
