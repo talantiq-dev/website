@@ -72,14 +72,14 @@ Friendly, practical and specific, like a friend who cooks a lot and is organized
 
 ## Process for each run
 
-1. Read this playbook, `topics.md`, and the existing posts in `content/blog/` (so you can link to them and match their style).
-2. Find open SEO pull requests: `git ls-remote --heads origin 'seo/*'`. If there are 3 or more, stop without writing: the reviewer is behind, and more posts would pile up. Otherwise pick the **first topic in topics.md whose status is `todo`** and whose slug has no `seo/<slug>` branch yet. If none is left, stop and say so.
-3. Research: search the web for the keyword to see what searchers need and to verify any app instructions or facts you'll state. Note sources for anything factual.
-4. Write the English and German posts.
-5. Run `node scripts/check-blog.mjs` and fix every error. Fix warnings unless you have a reason not to (say why in the PR).
-6. In `topics.md`, change that topic's status from `todo` to `published (YYYY-MM-DD)` with today's date. This only reaches `main` if the pull request is merged; a rejected pull request leaves the topic `todo`.
-7. Commit on a new branch `seo/<english-slug>` and open a pull request against `main`:
-   - Title: `Blog: <English title>`
-   - Body: target keywords (EN/DE), a 2-sentence summary of each post, the sources you used, any claims the reviewer should double-check, and any check-blog warnings you left in.
+The weekly workflow (`.github/workflows/weekly-blog-post.yml`) picks the first `todo` topic from `topics.md` and gives the writer its keywords, slugs and date. The writer then:
 
-Merging the pull request publishes both posts (the site deploys on push to `main`).
+1. Reads this playbook and the existing posts in `content/blog/` (to link to them and match their style).
+2. Researches the keyword on the web: what searchers need, and verification of every app instruction and fact to be stated. Only sources actually opened count.
+3. Writes the English and German posts at the given paths, each pointing at the other with `translation`.
+4. Runs `node scripts/check-blog.mjs` and fixes every error, and warnings unless there is a good reason.
+5. Changes nothing else and doesn't use git.
+
+The workflow then checks that only those two files changed, re-runs the quality check, builds the site, marks the topic `published (date)` in `topics.md`, commits to `main` and deploys. With `AUTO_PUBLISH: "false"` in the workflow it opens a pull request instead (branch `seo/<english-slug>`) and pauses while 3 posts await review.
+
+Writing a post by hand works the same way: follow steps 1–4, then set the topic's status yourself.

@@ -1,0 +1,191 @@
+# Writes one blog topic per week in English and German and publishes it.
+#
+# Claude only writes the two post files (headless Claude Code, no git or shell
+# access beyond the quality check). Everything else is deterministic: picking the
+# topic from seo/topics.md, scripts/check-blog.mjs, a full site build, and
+# publishing. See seo/PLAYBOOK.md for the writing rules.
+#
+# Setup: add ONE repository secret (Settings → Secrets and variables → Actions):
+#   CLAUDE_CODE_OAUTH_TOKEN  from `claude setup-token` (uses a Claude Pro/Max subscription), or
+#   ANTHROPIC_API_KEY        from console.anthropic.com (billed per use)
+name: Weekly blog post
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Mondays 13:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write # to start the Pages deploy after publishing
+  pull-requests: write
+
+concurrency:
+  group: weekly-blog-post
+  cancel-in-progress: false
+
+env:
+  # true: commit to main and deploy. false: open a pull request for review instead
+  # (then also enable Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests").
+  AUTO_PUBLISH: "true"
+  MODEL: claude-opus-5-5
+  # Review mode only: don't write more while this many posts await review
+  MAX_OPEN_REVIEWS: 3
+
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Pick this week's topic
+        id: topic
+        run: |
+          skip=""
+          if [ "$AUTO_PUBLISH" != "true" ]; then
+            open=$(git ls-remote --heads origin 'seo/*' | sed 's#.*refs/heads/seo/##')
+            count=$(printf '%s' "$open" | grep -c . || true)
+            if [ "$count" -ge "$MAX_OPEN_REVIEWS" ]; then
+              echo "::notice::$count blog posts are waiting for review; skipping this week."
+              exit 0
+            fi
+            skip=$(printf '%s' "$open" | paste -sd, -)
+          fi
+          topic=$(node scripts/topics.mjs next --skip "$skip")
+          if [ -z "$topic" ]; then
+            echo "::warning::No topics marked todo are left in seo/topics.md. Add more topics to keep the blog going."
+            exit 0
+          fi
+          {
+            echo "found=true"
+            echo "id=$(jq -r .id <<<"$topic")"
+            echo "en_slug=$(jq -r .en.slug <<<"$topic")"
+            echo "de_slug=$(jq -r .de.slug <<<"$topic")"
+            echo "today=$(date -u +%Y-%m-%d)"
+          } >> "$GITHUB_OUTPUT"
+          echo "$topic" > "$RUNNER_TEMP/topic.json"
+          echo "Topic: $(jq -r .id <<<"$topic")"
+
+      - name: Install dependencies
+        if: steps.topic.outputs.found == 'true'
+        run: |
+          npm ci
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Write the posts
+        if: steps.topic.outputs.found == 'true'
+        env:
+          OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TODAY: ${{ steps.topic.outputs.today }}
+        run: |
+          # Export only the credential that is set; an empty variable would count as a bad key
+          if [ -n "$OAUTH_TOKEN" ]; then export CLAUDE_CODE_OAUTH_TOKEN="$OAUTH_TOKEN"; fi
+          if [ -n "$API_KEY" ]; then export ANTHROPIC_API_KEY="$API_KEY"; fi
+          if [ -z "$OAUTH_TOKEN" ] && [ -z "$API_KEY" ]; then
+            echo "::error::Add a CLAUDE_CODE_OAUTH_TOKEN or ANTHROPIC_API_KEY repository secret."
+            exit 1
+          fi
+
+          t="$RUNNER_TEMP/topic.json"
+          cat > "$RUNNER_TEMP/prompt.md" <<EOF
+          You are writing this week's blog post for talantiq.com, the website of Sapid, a meal planning app. The website repository (Nuxt) is your working directory.
+
+          First read seo/PLAYBOOK.md in full and follow it exactly: it defines the rules, the facts about Sapid you may state, the format and the voice. Then read the existing posts in content/blog/ and content/blog/de/ so you can link to them and match their style.
+
+          This week's topic (from seo/topics.md):
+          - Topic: $(jq -r .id "$t")
+          - English: working title "$(jq -r .en.title "$t")", target keyword "$(jq -r .en.keyword "$t")", file content/blog/$(jq -r .en.slug "$t").md
+          - German: working title "$(jq -r .de.title "$t")", target keyword "$(jq -r .de.keyword "$t")", file content/blog/de/$(jq -r .de.slug "$t").md
+          - Angle: $(jq -r .angle "$t")
+          - Date for both posts: $TODAY
+
+          Steps:
+          1. Research the keyword on the web: what searchers need, and verify every instruction about other apps and every fact you plan to state. Only cite sources you actually opened.
+          2. Write both posts at exactly those two paths. Each post's translation field points at the other: /blog/$(jq -r .en.slug "$t") and /blog/de/$(jq -r .de.slug "$t").
+          3. Run node scripts/check-blog.mjs and fix every error. Fix warnings too unless you have a good reason.
+          4. Do not create or change any other file and do not run git. The workflow updates seo/topics.md and publishes the posts.
+
+          End your reply with exactly this section and nothing after it:
+          ## Summary
+          - English: <final English title>
+          - German: <final German title>
+          - Sources: <URLs you used>
+          - Double-check: <claims worth verifying, or "none">
+          EOF
+
+          claude -p "$(cat "$RUNNER_TEMP/prompt.md")" \
+            --model "$MODEL" \
+            --max-turns 120 \
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(node scripts/check-blog.mjs)" \
+            --output-format text | tee "$RUNNER_TEMP/claude-output.md"
+
+          # Keep only the summary for the commit message
+          sed -n '/^## Summary/,$p' "$RUNNER_TEMP/claude-output.md" > "$RUNNER_TEMP/summary.md"
+          if [ ! -s "$RUNNER_TEMP/summary.md" ]; then echo "## Summary" > "$RUNNER_TEMP/summary.md"; fi
+
+      - name: Verify
+        if: steps.topic.outputs.found == 'true'
+        env:
+          EN: content/blog/${{ steps.topic.outputs.en_slug }}.md
+          DE: content/blog/de/${{ steps.topic.outputs.de_slug }}.md
+        run: |
+          test -f "$EN" || { echo "::error::$EN was not written"; exit 1; }
+          test -f "$DE" || { echo "::error::$DE was not written"; exit 1; }
+
+          # Claude may only add these two files
+          changed=$(git status --porcelain --untracked-files=all | sed 's/^...//' | sort)
+          expected=$(printf '%s\n' "$EN" "$DE" | sort)
+          if [ "$changed" != "$expected" ]; then
+            echo "::error::Unexpected file changes:"
+            echo "$changed"
+            exit 1
+          fi
+
+          node scripts/check-blog.mjs
+          node scripts/topics.mjs publish "${{ steps.topic.outputs.id }}" "${{ steps.topic.outputs.today }}"
+          npm run generate
+
+      - name: Publish
+        if: steps.topic.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EN: content/blog/${{ steps.topic.outputs.en_slug }}.md
+          DE: content/blog/de/${{ steps.topic.outputs.de_slug }}.md
+          EN_SLUG: ${{ steps.topic.outputs.en_slug }}
+          DE_SLUG: ${{ steps.topic.outputs.de_slug }}
+        run: |
+          title=$(grep -m1 '^title:' "$EN" | sed -E 's/^title: *//; s/^"(.*)"$/\1/')
+          { echo "Blog: $title"; echo; cat "$RUNNER_TEMP/summary.md"; } > "$RUNNER_TEMP/commit-message.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$EN" "$DE" seo/topics.md
+
+          if [ "$AUTO_PUBLISH" = "true" ]; then
+            git commit -q -F "$RUNNER_TEMP/commit-message.txt"
+            git pull -q --rebase origin main
+            git push origin HEAD:main
+            # Pushes made with the workflow token don't trigger other workflows, so start the deploy explicitly
+            gh workflow run nuxtjs.yml --ref main
+            {
+              echo "### Published: $title"
+              echo "- https://talantiq.com/blog/$EN_SLUG"
+              echo "- https://talantiq.com/blog/de/$DE_SLUG"
+              echo
+              cat "$RUNNER_TEMP/summary.md"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            git checkout -q -b "seo/$EN_SLUG"
+            git commit -q -F "$RUNNER_TEMP/commit-message.txt"
+            git push origin "seo/$EN_SLUG"
+            url=$(gh pr create --base main --head "seo/$EN_SLUG" --title "Blog: $title" --body-file "$RUNNER_TEMP/summary.md")
+            echo "### Ready for review: [$title]($url)" >> "$GITHUB_STEP_SUMMARY"
+          fi

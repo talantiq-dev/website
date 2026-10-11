@@ -1,8 +1,8 @@
 # Blog topics
 
-The weekly routine takes the first topic marked `todo`, writes it in English and German, and opens a pull request (see [PLAYBOOK.md](PLAYBOOK.md)). Reorder, edit, add or delete topics freely; the order below front-loads seasonal topics so they publish in time.
+Every Monday the blog workflow takes the first topic marked `todo`, writes it in English and German and publishes it (see [PLAYBOOK.md](PLAYBOOK.md)). Reorder, edit, add or delete topics freely; the order below front-loads seasonal topics so they publish in time.
 
-Statuses: `todo` · `published (date)` (set by the merged pull request) · `blocked` (skipped until you change it to `todo`).
+Statuses: `todo` · `published (date)` (set by the workflow) · `blocked` (skipped until you change it to `todo`).
 
 Each topic lists the English and German working title, target keyword and slug, plus the angle. Titles are suggestions; keywords and slugs are the contract.
 
