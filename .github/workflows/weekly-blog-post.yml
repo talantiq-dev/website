@@ -24,11 +24,18 @@ concurrency:
   group: weekly-blog-post
   cancel-in-progress: false
 
+defaults:
+  run:
+    # An explicit shell turns on pipefail; without it `claude ... | tee` hides Claude's exit code
+    shell: bash
+
 env:
   # true: commit to main and deploy. false: open a pull request for review instead
   # (then also enable Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests").
   AUTO_PUBLISH: "true"
   MODEL: claude-opus-5-5
+  # Used when MODEL fails, e.g. if the subscription doesn't include it
+  FALLBACK_MODEL: claude-sonnet-5-5
   # Review mode only: don't write more while this many posts await review
   MAX_OPEN_REVIEWS: 3
 
@@ -122,11 +129,25 @@ jobs:
           - Double-check: <claims worth verifying, or "none">
           EOF
 
-          claude -p "$(cat "$RUNNER_TEMP/prompt.md")" \
-            --model "$MODEL" \
-            --max-turns 120 \
-            --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(node scripts/check-blog.mjs)" \
-            --output-format text | tee "$RUNNER_TEMP/claude-output.md"
+          run_claude() {
+            local status=0
+            claude -p "$(cat "$RUNNER_TEMP/prompt.md")" \
+              --model "$1" \
+              --max-turns 120 \
+              --allowedTools "Read,Write,Edit,Glob,Grep,WebSearch,WebFetch,Bash(node scripts/check-blog.mjs)" \
+              --output-format text > "$RUNNER_TEMP/claude-output.md" 2>&1 || status=$?
+            cat "$RUNNER_TEMP/claude-output.md"
+            return $status
+          }
+          # Annotations are visible on the public run page, unlike the logs
+          first_lines() { head -c 300 "$RUNNER_TEMP/claude-output.md" | tr '\n' ' '; }
+          if ! run_claude "$MODEL"; then
+            echo "::warning title=Claude failed with $MODEL::$(first_lines)"
+            if ! run_claude "$FALLBACK_MODEL"; then
+              echo "::error title=Claude failed::$(first_lines)"
+              exit 1
+            fi
+          fi
 
           # Keep only the summary for the commit message
           sed -n '/^## Summary/,$p' "$RUNNER_TEMP/claude-output.md" > "$RUNNER_TEMP/summary.md"
