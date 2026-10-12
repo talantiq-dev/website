@@ -40,12 +40,24 @@ definePageMeta({
 
         <p>The Application incorporates Artificial Intelligence (AI) technologies to provide certain features or services. By using the Application, you acknowledge and agree that AI may be used to process data and deliver functionalities. The Service Provider ensures that all AI usage complies with applicable laws and is designed to benefit the user experience.</p>
 
+        <h2>Web Search Results</h2>
+        <p>The Application's assistant can search the web for recipes. These search results are provided by a third-party search provider and are shown to you only so that you can find and choose recipes within the Application. When using search results, you agree that you will not, and will not allow anyone else to:</p>
+        <ul>
+          <li>store, cache, or build a database or collection of search results, in whole or in part, beyond what the Application itself does while you use it;</li>
+          <li>access or collect search results by automated means, such as bots, scrapers, or scripts;</li>
+          <li>copy, redistribute, publish, sell, resell, rent, or sublicense search results;</li>
+          <li>create derivative works of search results;</li>
+          <li>use search results to create, train, fine-tune, evaluate, benchmark, or otherwise improve artificial intelligence models or services;</li>
+          <li>use the search feature or search results in any way that infringes the intellectual property or other rights of any person or that violates any applicable law.</li>
+        </ul>
+        <p>Search results may link to websites and content owned by third parties. That content belongs to its respective owners and is subject to their rights and terms. When you import a recipe from a website into the Application, it is for your own personal, non-commercial use, and you are responsible for respecting the rights of the website's owner. The Service Provider may limit how many searches you can make, and may suspend or restrict access to the search feature if these terms are not followed.</p>
+
         <p>The Service Provider may wish to update the application at some point. The application is currently available as per the requirements for the operating system (and for any additional systems they decide to extend the availability of the application to) may change, and you will need to download the updates if you want to continue using the application. The Service Provider does not guarantee that it will always update the application so that it is relevant to you and/or compatible with the particular operating system version installed on your device. However, you agree to always accept updates to the application when offered to you. The Service Provider may also wish to cease providing the application and may terminate its use at any time without providing termination notice to you. Unless they inform you otherwise, upon any termination, (a) the rights and licenses granted to you in these terms will end; (b) you must cease using the application, and (if necessary) delete it from your device.</p>
 
         <h2>Changes to These Terms and Conditions</h2>
         <p>The Service Provider may periodically update their Terms and Conditions. Therefore, you are advised to review this page regularly for any changes. The Service Provider will notify you of any changes by posting the new Terms and Conditions on this page.</p>
 
-        <p>These terms and conditions are effective as of 2026-01-27</p>
+        <p>These terms and conditions are effective as of 2026-10-11</p>
 
         <h2>Contact Us</h2>
         <p>If you have any questions or suggestions about the Terms and Conditions, please do not hesitate to contact the Service Provider at info@talantiq.com.</p>
