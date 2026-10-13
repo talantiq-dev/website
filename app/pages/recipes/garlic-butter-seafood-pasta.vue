@@ -70,12 +70,25 @@ const toggleIngredient = (idx: number) => {
 
 const copied = ref(false)
 const copyUrl = async () => {
-  if (process.client && navigator?.clipboard) {
-    await navigator.clipboard.writeText(pageUrl)
-    copied.value = true
-    setTimeout(() => {
-      copied.value = false
-    }, 2500)
+  if (process.client) {
+    if (navigator?.share) {
+      try {
+        await navigator.share({
+          title: recipe.title,
+          url: pageUrl,
+        })
+        return
+      } catch {
+        // user dismissed or share aborted
+      }
+    }
+    if (navigator?.clipboard) {
+      await navigator.clipboard.writeText(pageUrl)
+      copied.value = true
+      setTimeout(() => {
+        copied.value = false
+      }, 2500)
+    }
   }
 }
 
