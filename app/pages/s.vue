@@ -1,5 +1,18 @@
 <script setup lang="ts">
-interface SharedMeal { kind: 'recipe' | 'quick' | 'flexible', title: string, sourceUrl?: string, creator?: string }
+interface SharedRecipeIngredient {
+  name: string
+  amount?: string
+}
+
+interface SharedMeal {
+  kind: 'recipe' | 'quick' | 'flexible'
+  title: string
+  sourceUrl?: string
+  creator?: string
+  ingredients?: SharedRecipeIngredient[]
+  steps?: string[]
+}
+
 interface SharedShare {
   kind: 'plan' | 'shopping'
   lang: 'en' | 'de' | 'fr' | 'es'
@@ -30,21 +43,25 @@ const COPY = {
     plan: 'Meal plan', shopping: 'Shopping list', from: 'by', original: 'Original recipe', copy: 'Copy list', copiedLabel: 'Copied!', made: 'Made with Sapid',
     ctaPlan: 'Plan your own week in minutes', ctaShopping: 'One shopping list for the whole week',
     ctaText: 'Sapid imports recipes from TikTok, Instagram and any blog, plans your week and sorts your shopping list by store.',
+    viewRecipe: 'Recipe details', ingredients: 'Ingredients', steps: 'Steps',
   },
   de: {
     plan: 'Essensplan', shopping: 'Einkaufsliste', from: 'von', original: 'Originalrezept', copy: 'Liste kopieren', copiedLabel: 'Kopiert!', made: 'Erstellt mit Sapid',
     ctaPlan: 'Plane deine eigene Woche in Minuten', ctaShopping: 'Eine Einkaufsliste für die ganze Woche',
     ctaText: 'Sapid importiert Rezepte von TikTok, Instagram und jedem Blog, plant deine Woche und sortiert deine Einkaufsliste nach Laden.',
+    viewRecipe: 'Rezeptdetails', ingredients: 'Zutaten', steps: 'Zubereitung',
   },
   fr: {
     plan: 'Menu de la semaine', shopping: 'Liste de courses', from: 'par', original: 'Recette originale', copy: 'Copier la liste', copiedLabel: 'Copié !', made: 'Créé avec Sapid',
     ctaPlan: 'Planifiez votre semaine en quelques minutes', ctaShopping: 'Une seule liste de courses pour toute la semaine',
     ctaText: 'Sapid importe des recettes depuis TikTok, Instagram et n’importe quel blog, planifie votre semaine et trie votre liste de courses par magasin.',
+    viewRecipe: 'Détails de la recette', ingredients: 'Ingrédients', steps: 'Étapes',
   },
   es: {
     plan: 'Plan de comidas', shopping: 'Lista de la compra', from: 'de', original: 'Receta original', copy: 'Copiar lista', copiedLabel: '¡Copiado!', made: 'Hecho con Sapid',
     ctaPlan: 'Planifica tu semana en minutos', ctaShopping: 'Una sola lista de la compra para toda la semana',
     ctaText: 'Sapid importa recetas de TikTok, Instagram y cualquier blog, planifica tu semana y ordena tu lista de la compra por tienda.',
+    viewRecipe: 'Detalles de la receta', ingredients: 'Ingredientes', steps: 'Pasos',
   },
 }
 const copy = computed(() => COPY[share.value?.lang || 'en'])
@@ -124,12 +141,42 @@ async function copyList() {
             <ul>
               <li v-for="(meal, index) in day.meals" :key="index" class="meal" :class="meal.kind">
                 <Icon :name="meal.kind === 'recipe' ? 'lucide:utensils' : meal.kind === 'quick' ? 'lucide:zap' : 'lucide:calendar-off'" class="meal-icon" />
-                <div>
+                <div class="meal-content">
                   <span class="meal-title">{{ meal.title }}</span>
                   <a v-if="meal.sourceUrl" :href="meal.sourceUrl" target="_blank" rel="nofollow noopener" class="source">
                     {{ meal.creator ? `${copy.original} ${copy.from} ${meal.creator}` : copy.original }}
                     <Icon name="lucide:external-link" />
                   </a>
+
+                  <!-- Recipe ingredients & steps for user-owned recipes -->
+                  <details v-if="meal.ingredients?.length || meal.steps?.length" class="meal-recipe">
+                    <summary class="meal-recipe-toggle">
+                      <Icon name="lucide:book-open" class="toggle-icon" />
+                      <span>{{ copy.viewRecipe }}</span>
+                      <Icon name="lucide:chevron-down" class="chevron-icon" />
+                    </summary>
+                    <div class="meal-recipe-content">
+                      <div v-if="meal.ingredients?.length" class="recipe-section">
+                        <h3 class="recipe-section-title">{{ copy.ingredients }}</h3>
+                        <ul class="recipe-ingredients-list">
+                          <li v-for="(item, itemIdx) in meal.ingredients" :key="itemIdx" class="recipe-ingredient-item">
+                            <span class="ingredient-name">{{ item.name }}</span>
+                            <span v-if="item.amount" class="ingredient-amount">{{ item.amount }}</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div v-if="meal.steps?.length" class="recipe-section">
+                        <h3 class="recipe-section-title">{{ copy.steps }}</h3>
+                        <ol class="recipe-steps-list">
+                          <li v-for="(step, stepIdx) in meal.steps" :key="stepIdx" class="recipe-step-item">
+                            <span class="step-num">{{ stepIdx + 1 }}</span>
+                            <span class="step-text">{{ step }}</span>
+                          </li>
+                        </ol>
+                      </div>
+                    </div>
+                  </details>
                 </div>
               </li>
             </ul>
@@ -243,12 +290,155 @@ async function copyList() {
   font-weight: 600;
 }
 
+.meal-content {
+  flex: 1;
+  min-width: 0;
+}
+
 .source {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
   font-size: 0.875rem;
   color: var(--color-primary-700);
+}
+
+.meal-recipe {
+  margin-top: 0.625rem;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 0.875rem;
+  background: var(--color-neutral-50);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.meal-recipe[open] {
+  background: var(--color-white);
+  border-color: var(--color-primary-300);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+}
+
+.meal-recipe-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary-700);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.meal-recipe-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.meal-recipe-toggle:hover {
+  background: var(--color-primary-50);
+}
+
+.meal-recipe-toggle .toggle-icon {
+  font-size: 0.9375rem;
+  color: var(--color-primary-600);
+}
+
+.meal-recipe-toggle .chevron-icon {
+  margin-left: auto;
+  font-size: 0.9375rem;
+  transition: transform 0.2s ease;
+  color: var(--color-neutral-400);
+}
+
+.meal-recipe[open] .meal-recipe-toggle .chevron-icon {
+  transform: rotate(180deg);
+}
+
+.meal-recipe-content {
+  padding: 0.875rem 1rem;
+  border-top: 1px solid var(--color-neutral-200);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recipe-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-neutral-500);
+  margin-bottom: 0.5rem;
+}
+
+.recipe-ingredients-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.recipe-ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  padding: 0.25rem 0;
+  border-bottom: 1px dashed var(--color-neutral-200);
+}
+
+.recipe-ingredient-item:last-child {
+  border-bottom: none;
+}
+
+.ingredient-name {
+  color: var(--color-neutral-800);
+  font-weight: 500;
+}
+
+.ingredient-amount {
+  color: var(--color-neutral-500);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.recipe-steps-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.recipe-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-neutral-700);
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background: var(--color-primary-100);
+  color: var(--color-primary-800);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.step-text {
+  flex: 1;
 }
 
 .store li {
