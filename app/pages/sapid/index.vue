@@ -90,7 +90,7 @@ useHead({
           'applicationCategory': 'LifestyleApplication',
           'url': pageUrl,
           'image': `${config.public.siteUrl}/sapid-icon.png`,
-          'installUrl': sapid.playStoreUrl,
+          'installUrl': sapid.appStoreUrl ? [sapid.playStoreUrl, sapid.appStoreUrl] : sapid.playStoreUrl,
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'EUR' },
           'publisher': { '@type': 'Organization', 'name': 'Talentiq Solutions', 'url': config.public.siteUrl },
         },

@@ -8,7 +8,7 @@ To bring people who search for help with saving recipes, planning meals and groc
 
 ## Facts about Sapid (only claim what is listed here)
 
-- Sapid is a meal planning app made by Talentiq Solutions. Available on **Android** (Google Play). iOS: check `app/app.config.ts`; if `appStoreUrl` is empty, say "coming to iPhone soon" or don't mention iOS.
+- Sapid is a meal planning app made by Talentiq Solutions. Available on **Android** (Google Play) and **iOS** (App Store).
 - Languages: English, German, French, Spanish. Imported recipes are translated into the app language.
 - **Free**: weekly meal planner (7–14 days), quick meals (e.g. "sandwich") and flexible days (leftovers, takeout, eating out), "shift plan forward" by a day, shopping list for the whole plan grouped by the user's stores with a custom aisle order, extra items (paper towels etc.), pantry tracking, adding your own recipes by hand, cooking mode that keeps the screen on, with timers and voice control for stepping through recipes, household size that scales recipes, sync across devices.
 - **Premium**: importing recipes from a link (TikTok, Instagram, YouTube, any recipe website), from a photo (e.g. a cookbook page) or from pasted text; AI meal planner that suggests a week from your saved recipes; nutrition estimates.
