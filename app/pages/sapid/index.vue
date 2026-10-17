@@ -118,14 +118,60 @@ useHead({
             You save recipes everywhere, then stand in the kitchen with no plan. Sapid brings every recipe into one place, plans your week, writes one shopping list and talks you through cooking.
           </p>
           <StoreButtons campaign="sapid_hero" />
-          <NuxtLink to="/sapid/recipe-extractor" class="try-link">
-            <Icon name="lucide:sparkles" /> Try the recipe import free in your browser
-          </NuxtLink>
+          <div class="hero-actions">
+            <NuxtLink to="/sapid/recipe-extractor" class="try-link">
+              <Icon name="lucide:sparkles" /> Try the recipe import free in your browser
+            </NuxtLink>
+            <a href="#video-tour" class="text-link video-link">
+              <Icon name="lucide:play-circle" /> Watch 20s preview
+            </a>
+          </div>
         </div>
         <div class="hero-visual">
           <div class="phone-frame">
             <img src="/onboarding-1.png" alt="Sapid onboarding screen: the mental load of meal planning, solved">
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Showcase Section -->
+    <section id="video-tour" class="video-showcase-section section-py">
+      <div class="container video-showcase-grid">
+        <div class="video-showcase-copy">
+          <span class="eyebrow">20-second preview</span>
+          <h2 class="section-title">
+            See how Sapid turns saved videos into dinner
+          </h2>
+          <p class="section-subtitle">
+            Watch how you can share a Reel or TikTok, plan out your meals, and let the voice assistant step you through cooking.
+          </p>
+          <div class="video-highlights">
+            <div class="highlight-item">
+              <span class="highlight-badge">0:01</span>
+              <div class="highlight-text">
+                <strong>1-Tap Recipe Import:</strong> Share directly from TikTok, Instagram or YouTube
+              </div>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-badge">0:08</span>
+              <div class="highlight-text">
+                <strong>Weekly Meal Planner:</strong> Auto-plan your week and generate one combined shopping list
+              </div>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-badge">0:14</span>
+              <div class="highlight-text">
+                <strong>Hands-Free Cooking:</strong> Voice-guided steps and timers keep your screen awake
+              </div>
+            </div>
+          </div>
+          <div class="video-cta">
+            <StoreButtons campaign="sapid_video" size="md" />
+          </div>
+        </div>
+        <div class="video-showcase-player">
+          <PromoVideoPlayer campaign="sapid_video" />
         </div>
       </div>
     </section>
@@ -459,5 +505,104 @@ useHead({
   color: var(--color-neutral-700);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 600;
+  color: var(--color-primary-700);
+  transition: color 0.2s ease;
+}
+
+.video-link:hover {
+  color: var(--color-primary-900);
+}
+
+.video-showcase-section {
+  background: var(--color-primary-50);
+  border-top: 1px solid var(--color-primary-100);
+  border-bottom: 1px solid var(--color-primary-100);
+}
+
+.video-showcase-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .video-showcase-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.video-showcase-copy .section-title {
+  margin-bottom: 0.75rem;
+}
+
+.video-showcase-copy .section-subtitle {
+  color: var(--color-neutral-600);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+
+.video-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.highlight-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  background: var(--color-primary-200);
+  color: var(--color-primary-900);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.highlight-text {
+  font-size: 0.95rem;
+  color: var(--color-neutral-700);
+  line-height: 1.5;
+}
+
+.highlight-text strong {
+  color: var(--color-neutral-900);
+}
+
+.video-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.video-showcase-player {
+  display: flex;
+  justify-content: center;
 }
 </style>

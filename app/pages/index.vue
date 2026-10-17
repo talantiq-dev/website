@@ -58,6 +58,9 @@ const services = [
             <NuxtLink to="/sapid" class="text-link">
               How Sapid works <Icon name="lucide:arrow-right" />
             </NuxtLink>
+            <a href="#video-tour" class="text-link video-link">
+              <Icon name="lucide:play-circle" /> Watch 20s preview
+            </a>
           </div>
         </div>
         <div class="hero-visual">
@@ -96,6 +99,30 @@ const services = [
             <h3>{{ pillar.title }}</h3>
             <p>{{ pillar.text }}</p>
           </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Showcase Section -->
+    <section id="video-tour" class="video-section section-py">
+      <div class="container video-grid">
+        <div class="video-copy">
+          <span class="eyebrow">Watch how it works</span>
+          <h2 class="section-title">
+            One tap from saved video to dinner on the table
+          </h2>
+          <p class="section-subtitle">
+            See how Sapid turns recipes you save on TikTok, Instagram and YouTube into weekly meals, an organized grocery list, and a hands-free cooking assistant.
+          </p>
+          <div class="video-actions">
+            <StoreButtons campaign="home_video" size="md" />
+            <NuxtLink to="/sapid" class="text-link">
+              Explore all features <Icon name="lucide:arrow-right" />
+            </NuxtLink>
+          </div>
+        </div>
+        <div class="video-player-container">
+          <PromoVideoPlayer campaign="home_video" />
         </div>
       </div>
     </section>
@@ -167,6 +194,10 @@ const services = [
 
 .hero-links {
   margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .text-link {
@@ -175,6 +206,15 @@ const services = [
   gap: 0.375rem;
   font-weight: 600;
   color: var(--color-primary-700);
+}
+
+.video-link {
+  color: var(--color-primary-700);
+  transition: color 0.2s ease;
+}
+
+.video-link:hover {
+  color: var(--color-primary-900);
 }
 
 .hero-visual {
@@ -313,5 +353,46 @@ const services = [
 
 .service p {
   color: var(--color-neutral-400);
+}
+
+.video-section {
+  background: var(--color-primary-50);
+  border-top: 1px solid var(--color-primary-100);
+  border-bottom: 1px solid var(--color-primary-100);
+}
+
+.video-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .video-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.video-copy .section-title {
+  margin-bottom: 0.75rem;
+}
+
+.video-copy .section-subtitle {
+  color: var(--color-neutral-600);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+
+.video-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.video-player-container {
+  display: flex;
+  justify-content: center;
 }
 </style>
