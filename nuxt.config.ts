@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/sapid', '/sapid/recipe-extractor', '/blog', '/blog/de', '/privacy', '/terms', '/delete', '/contact', '/services', '/s', '/sitemap.xml', '/recipes/garlic-butter-seafood-pasta']
+      routes: ['/', '/sapid', '/sapid/recipe-extractor', '/blog', '/blog/de', '/privacy', '/terms', '/delete', '/contact', '/services', '/s', '/j', '/sitemap.xml', '/recipes/garlic-butter-seafood-pasta']
     }
   },
   app: {
